@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.nokiabluetooth'
+    namespace 'com.worldpay.wptm.testing.nokiabluetooth'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.nokiabluetooth"
-        minSdk 27
+        applicationId "com.worldpay.wptm.testing.nokiabluetooth"
+        minSdk 25
         targetSdk 33
         versionCode 1
         versionName "1.0"
