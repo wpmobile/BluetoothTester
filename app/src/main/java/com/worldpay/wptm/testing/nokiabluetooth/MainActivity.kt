@@ -1,4 +1,4 @@
-package com.example.nokiabluetooth
+package com.worldpay.wptm.testing.nokiabluetooth
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
+import com.worldpay.wptm.testing.nokiabluetooth.R
 import kotlinx.coroutines.*
 import java.util.*
 
