@@ -22,12 +22,12 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import androidx.lifecycle.lifecycleScope
-import com.worldpay.wptm.testing.nokiabluetooth.R
 import kotlinx.coroutines.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnRequestPermissionsResultCallback {
 
     private lateinit var buttonOld: Button
     private lateinit var buttonNew: Button
@@ -124,14 +124,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+
+        val p = permissions.fold("") { old, new -> "$old $new"}
+        val g = grantResults.fold("") { old, new -> "$old $new"}
+        updateLog("onRequestPermissionsResult $requestCode $p $g")
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     override fun onResume() {
         super.onResume()
 
-        val permissions = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
-            arrayOf(Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN)
-        } else {
-            arrayOf(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
-        }
+
+
+
+        val permissions =
+            mutableListOf(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
+                .also {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+                        it.add(Manifest.permission.BLUETOOTH_CONNECT)
+                        it.add(Manifest.permission.BLUETOOTH_SCAN)
+                    }
+                }.toTypedArray()
+//        val permissions = packageManager.queryPermissionsByGroup(Manifest.permission_group.NEARBY_DEVICES, 0)
+//            .map { it.name }
+//            .toTypedArray()//arrayOf(Manifest.permission_group.NEARBY_DEVICES)
 
         val allGranted = permissions.fold(true) { granted, permission ->
             val state = ActivityCompat.checkSelfPermission(this, permission)
@@ -162,6 +183,7 @@ class MainActivity : AppCompatActivity() {
 //            buttonGroup.visibility = View.GONE
 //        }
     }
+
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun checkNearbyDevices() {
