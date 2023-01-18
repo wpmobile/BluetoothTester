@@ -19,6 +19,9 @@ android {
 
 
     buildTypes {
+        debug {
+            matchingFallbacks = ['debug', 'qa', 'release']
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -37,12 +40,17 @@ android {
 
 dependencies {
 
+    //implementation group: 'com.worldpay', name: 'worldpay-total-sdk', version: '5.0.0-c3ec8bf4-SNAPSHOT'
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+
+    implementation "com.worldpay:worldpay-total-sdk-stomp:4.0.2"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'

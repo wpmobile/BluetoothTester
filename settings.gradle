@@ -10,6 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://artifacts.mobile.worldpay.com/artifactory/libs-release"//"https://europe-west2-maven.pkg.dev/wp-uk-engineering/libs-snapshot"
+        }
     }
 }
 rootProject.name = "NokiaBluetooth"

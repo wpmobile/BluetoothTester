@@ -24,6 +24,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import androidx.lifecycle.lifecycleScope
+import com.worldpay.websocket.ConnectionConfiguration
+import com.worldpay.websocket.StompConnection
+import com.worldpay.websocket.stomp.MessageHeader
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -77,6 +80,17 @@ class MainActivity : AppCompatActivity(), OnRequestPermissionsResultCallback {
         setContentView(R.layout.activity_main)
         StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().build())
 
+        val q = object: ConnectionConfiguration {
+            override var authenticationHeader: MessageHeader?
+                get() = TODO("Not yet implemented")
+                set(value) {}
+            override val messageSenderId: String
+                get() = TODO("Not yet implemented")
+            override var timeoutMilliseconds: Long
+                get() = TODO("Not yet implemented")
+                set(value) {}
+
+        }
         val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
         bluetoothAdapter = bluetoothManager.adapter
 
